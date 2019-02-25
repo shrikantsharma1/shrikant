@@ -1,0 +1,49 @@
+SQL> declare
+  2  cursor c is select name from emp11
+  3  n varchar2(15);
+  4  begin
+  5  open c;
+  6  loop
+  7  fetch c into n;
+  8  exit when c %notfound;
+  9  dbms_output.put_line(c %rowcount||' '||n);
+ 10  end loop;
+ 11  end;
+ 12  /
+n varchar2(15);
+  *
+ERROR at line 3:
+ORA-06550: line 3, column 3: 
+PL/SQL: ORA-00933: SQL command not properly ended 
+ORA-06550: line 2, column 13: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  cursor c is select name from emp11;
+  3  n varchar2(15);
+  4  begin
+  5  open c;
+  6  loop
+  7  fetch c into n;
+  8  exit when c %notfound;
+  9  dbms_output.put_line(c %rowcount||' '||n);
+ 10  end loop;
+ 11* end;
+SQL> /
+1 sush                                                                          
+2 sinu                                                                          
+3 prak                                                                          
+4 sush                                                                          
+5 prak                                                                          
+
+PL/SQL procedure successfully completed.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;

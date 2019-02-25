@@ -1,0 +1,154 @@
+SQL> declare
+  2  cursor c is select name from emp1;
+  3  x varchar2(10);
+  4  begin
+  5  open c
+  6  loop
+  7  fetch c into x;
+  8  exit when c %notfound;
+  9  dbms_output.put_line(c %rowcount||' '||x);
+ 10  end loop;
+ 11  end;
+ 12  /
+loop
+*
+ERROR at line 6:
+ORA-06550: line 6, column 1: 
+PLS-00103: Encountered the symbol "LOOP" when expecting one of the following: 
+. ( % ; for 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  cursor c is select name from emp1;
+  3  x varchar2(10);
+  4  begin
+  5  open c;
+  6  loop
+  7  fetch c into x;
+  8  exit when c %notfound;
+  9  dbms_output.put_line(c %rowcount||' '||x);
+ 10  end loop;
+ 11* end;
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> begin
+  2  
+  3  /
+begin
+*
+ERROR at line 1:
+ORA-06550: line 2, column 0: 
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the following: 
+( begin case declare exit for goto if loop mod null pragma 
+raise return select update while with <an identifier> 
+<a double-quoted delimited-identifier> <a bind variable> << 
+continue close current delete fetch lock insert open rollback 
+savepoint set sql execute commit forall merge pipe purge 
+
+
+SQL> set serveroutput on;
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  cursor c is select name from emp1;
+  3  x varchar2(10);
+  4  begin
+  5  open c;
+  6  loop
+  7  fetch c into x;
+  8  exit when c %notfound;
+  9  dbms_output.put_line(c %rowcount||' '||x);
+ 10  end loop;
+ 11* end;
+SQL> /
+1 varun                                                                                                                                                                                                                                                   
+2 ranbir                                                                                                                                                                                                                                                  
+3 aryan                                                                                                                                                                                                                                                   
+4 kartik                                                                                                                                                                                                                                                  
+5 kriti                                                                                                                                                                                                                                                   
+6 kareena                                                                                                                                                                                                                                                 
+7 alia                                                                                                                                                                                                                                                    
+8 deepika                                                                                                                                                                                                                                                 
+9 sanjay                                                                                                                                                                                                                                                  
+10 ramgopal                                                                                                                                                                                                                                               
+11 anurag                                                                                                                                                                                                                                                 
+12 vishal                                                                                                                                                                                                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  cursor c is select a.name b.id from emp1 a,emp b;
+  3  x varchar2(10);
+  4  begin
+  5  open c;
+  6  loop
+  7  fetch c into x;
+  8  exit when c %notfound;
+  9  dbms_output.put_line(c %rowcount||' '||x);
+ 10  end loop;
+ 11* end;
+SQL> /
+cursor c is select a.name b.id from emp1 a,emp b;
+                           *
+ERROR at line 2:
+ORA-06550: line 2, column 28: 
+PL/SQL: ORA-00923: FROM keyword not found where expected 
+ORA-06550: line 2, column 13: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> /
+cursor c is select a.name b.id from emp1 a,emp b;
+                           *
+ERROR at line 2:
+ORA-06550: line 2, column 28: 
+PL/SQL: ORA-00923: FROM keyword not found where expected 
+ORA-06550: line 2, column 13: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  cursor c is select name from emp1;
+  3  x varchar2(10);
+  4  begin
+  5  open c;
+  6  loop
+  7  fetch c into x;
+  8  exit when c %notfound;
+  9  dbms_output.put_line(c %rowcount||' '||x);
+ 10  end loop;
+ 11* end;
+SQL> /
+1 varun                                                                                                                                                                                                                                                   
+2 ranbir                                                                                                                                                                                                                                                  
+3 aryan                                                                                                                                                                                                                                                   
+4 kartik                                                                                                                                                                                                                                                  
+5 kriti                                                                                                                                                                                                                                                   
+6 kareena                                                                                                                                                                                                                                                 
+7 alia                                                                                                                                                                                                                                                    
+8 deepika                                                                                                                                                                                                                                                 
+9 sanjay                                                                                                                                                                                                                                                  
+10 ramgopal                                                                                                                                                                                                                                               
+11 anurag                                                                                                                                                                                                                                                 
+12 vishal                                                                                                                                                                                                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> spool off;
