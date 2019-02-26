@@ -1,0 +1,645 @@
+SQL> declare
+  2  n number;
+  3  begin
+  4  n:=10.0;
+  5  dbms_output.put_line(n);
+  6  exception
+  7  when zero_devide then
+  8  dbms_output.put_line('zero_devide_error');
+  9  end;
+ 10  /
+when zero_devide then
+     *
+ERROR at line 7:
+ORA-06550: line 7, column 6: 
+PLS-00201: identifier 'ZERO_DEVIDE' must be declared 
+ORA-06550: line 0, column 0: 
+PL/SQL: Compilation unit analysis terminated 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  n number;
+  3  begin
+  4  n:=10/0;
+  5  dbms_output.put_line(n);
+  6  exception
+  7  when zero_devide then
+  8  dbms_output.put_line('zero_devide_error');
+  9* end;
+SQL> /
+when zero_devide then
+     *
+ERROR at line 7:
+ORA-06550: line 7, column 6: 
+PLS-00201: identifier 'ZERO_DEVIDE' must be declared 
+ORA-06550: line 0, column 0: 
+PL/SQL: Compilation unit analysis terminated 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  n number;
+  3  begin
+  4  n:=10/0;
+  5  dbms_output.put_line(n);
+  6  exception
+  7  when zero_divide then
+  8  dbms_output.put_line('zero_devide_error');
+  9* end;
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> set serveroutput on;
+SQL> /
+zero_devide_error                                                               
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  enum number:=101;
+  3  ename varchar2(15);
+  4  begin
+  5  select ename into name from emp where id=enum;
+  6  dbms_output.put_line(ename);
+  7  exception
+  8  when no_data_found then
+  9  dbms_output.put_line('does'nt exist');
+ 10* end;
+SQL> /
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  enum number:=101;
+  3  ename varchar2(15);
+  4  begin
+  5  select ename into name from emp where id=enum;
+  6  dbms_output.put_line(ename);
+  7  exception
+  8  when no_data_found then
+  9  dbms_output.put_line('doesnt exist');
+ 10* end;
+SQL> /
+select ename into name from emp where id=enum;
+                                      *
+ERROR at line 5:
+ORA-06550: line 5, column 39: 
+PL/SQL: ORA-00904: "ID": invalid identifier 
+ORA-06550: line 5, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  enum number:=101;
+  3  name varchar2(15);
+  4  begin
+  5  select name into name from emp where id=enum;
+  6  dbms_output.put_line(ename);
+  7  exception
+  8  when no_data_found then
+  9  dbms_output.put_line('doesnt exist');
+ 10* end;
+SQL> /
+select name into name from emp where id=enum;
+                                     *
+ERROR at line 5:
+ORA-06550: line 5, column 38: 
+PL/SQL: ORA-00904: "ID": invalid identifier 
+ORA-06550: line 5, column 1: 
+PL/SQL: SQL Statement ignored 
+ORA-06550: line 6, column 22: 
+PLS-00201: identifier 'ENAME' must be declared 
+ORA-06550: line 6, column 1: 
+PL/SQL: Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  enum number:=101;
+  3  ename varchar2(15);
+  4  begin
+  5  select ename into name from emp where id=enum;
+  6  dbms_output.put_line(ename);
+  7  exception
+  8  when no_data_found then
+  9  dbms_output.put_line('doesnt exist');
+ 10* end;
+SQL> /
+select ename into name from emp where id=enum;
+                                      *
+ERROR at line 5:
+ORA-06550: line 5, column 39: 
+PL/SQL: ORA-00904: "ID": invalid identifier 
+ORA-06550: line 5, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  enum number:=101;
+  3  ename varchar2(15);
+  4  begin
+  5  select ename into name from emp where id=enum;
+  6  dbms_output.put_line(ename);
+  7  exception
+  8  when no_data_found then
+  9  dbms_output.put_line('doesnt exist');
+ 10* end;
+SQL> /
+select ename into name from emp where id=enum;
+                                      *
+ERROR at line 5:
+ORA-06550: line 5, column 39: 
+PL/SQL: ORA-00904: "ID": invalid identifier 
+ORA-06550: line 5, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  enum number:=101;
+  3  ename varchar2(15);
+  4  begin
+  5  select ename into name from emp where id=enum;
+  6  dbms_output.put_line(ename);
+  7  exception
+  8  when no_data_found then
+  9  dbms_output.put_line('doesnt exist');
+ 10* end;
+SQL> select * from emp;
+
+     EMPNO NAME                 DAY                                             
+---------- -------------------- ---------                                       
+   2363103 suriya               18-FEB-19                                       
+       101 akash                22-DEC-95                                       
+       101 akash                22-DEC-95                                       
+       101 akash                22-DEC-95                                       
+
+SQL> select * from emp11;
+select * from emp11
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> alter table emp add id number;
+
+Table altered.
+
+SQL> update emp11 set id=101;
+update emp11 set id=101
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> update emp11 set id=101;
+update emp11 set id=101
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from emp11;
+select * from emp11
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> update emp set id=101;
+
+4 rows updated.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  enum number:=101;
+  3  ename varchar2(15);
+  4  begin
+  5  select ename into name from emp where id=enum;
+  6  dbms_output.put_line(ename);
+  7  exception
+  8  when no_data_found then
+  9  dbms_output.put_line('doesnt exist');
+ 10* end;
+SQL> /
+select ename into name from emp where id=enum;
+                  *
+ERROR at line 5:
+ORA-06550: line 5, column 19: 
+PLS-00201: identifier 'NAME' must be declared 
+ORA-06550: line 5, column 24: 
+PL/SQL: ORA-00904: : invalid identifier 
+ORA-06550: line 5, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename varchar2(15);
+  3  begin
+  4  select ename into name from emp where id=101;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+ 10  /
+select ename into name from emp where id=101;
+                  *
+ERROR at line 4:
+ORA-06550: line 4, column 19: 
+PLS-00201: identifier 'NAME' must be declared 
+ORA-06550: line 4, column 24: 
+PL/SQL: ORA-00904: : invalid identifier 
+ORA-06550: line 4, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename varchar2(15);
+  3  begin
+  4  select ename into name from emp where id=101;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER
+ NAME                                               CHAR(20)
+ DAY                                                DATE
+ ID                                                 NUMBER
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename char;
+  3  begin
+  4  select ename into name from emp where id=101;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> ;
+  1  declare
+  2  ename char;
+  3  begin
+  4  select ename into name from emp where id=101;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> /
+select ename into name from emp where id=101;
+                  *
+ERROR at line 4:
+ORA-06550: line 4, column 19: 
+PLS-00201: identifier 'NAME' must be declared 
+ORA-06550: line 4, column 24: 
+PL/SQL: ORA-00904: : invalid identifier 
+ORA-06550: line 4, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename char;
+  3  begin
+  4  select ename into name from emp where id=101;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename char;
+  3  begin
+  4  select ename into name from emp where id=101;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> select * from emp;
+
+     EMPNO NAME                 DAY               ID                            
+---------- -------------------- --------- ----------                            
+   2363103 suriya               18-FEB-19        101                            
+       101 akash                22-DEC-95        101                            
+       101 akash                22-DEC-95        101                            
+       101 akash                22-DEC-95        101                            
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename char(20);
+  3  begin
+  4  select ename into name from emp where empno=2363103;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> /
+select ename into name from emp where empno=2363103;
+                  *
+ERROR at line 4:
+ORA-06550: line 4, column 19: 
+PLS-00201: identifier 'NAME' must be declared 
+ORA-06550: line 4, column 24: 
+PL/SQL: ORA-00904: : invalid identifier 
+ORA-06550: line 4, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> /ed
+SP2-0042: unknown command "/ed" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename varchar(20);
+  3  begin
+  4  select name into ename from emp where empno=2363103;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> /
+suriya                                                                          
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename varchar(20);
+  3  begin
+  4  select name into ename from emp where empno=23631013;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> /
+doesnt exist                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename varchar(20);
+  3  begin
+  4  select name from emp where empno=23631013;
+  5  dbms_output.put_line(name);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> /
+select name from emp where empno=23631013;
+*
+ERROR at line 4:
+ORA-06550: line 4, column 1: 
+PLS-00428: an INTO clause is expected in this SELECT statement 
+ORA-06550: line 5, column 22: 
+PLS-00201: identifier 'NAME' must be declared 
+ORA-06550: line 5, column 1: 
+PL/SQL: Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  ename varchar(20);
+  3  begin
+  4  select name into ename from emp where empno=23631013;
+  5  dbms_output.put_line(ename);
+  6  exception
+  7  when no_data_found then
+  8  dbms_output.put_line('doesnt exist');
+  9* end;
+SQL> /
+doesnt exist                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> create sequence add increament by 1 start with 100 nocycle nocache;
+create sequence add increament by 1 start with 100 nocycle nocache
+                *
+ERROR at line 1:
+ORA-02277: invalid sequence name 
+
+
+SQL> create sequence addval increament by 1 start with 100 nocycle nocache;
+create sequence addval increament by 1 start with 100 nocycle nocache
+                       *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> create sequence "cus_seq"
+  2  srtart with 1
+  3  /
+srtart with 1
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create sequence "cus_seq"
+  2  start with 100
+  3  increment by 1
+  4  nocycle
+  5* nocache
+SQL> /
+
+Sequence created.
+
+SQL> create or replace function "regfuncust1"
+  2  name varchar2(15)
+  3  id number;
+  4  DOb date;
+  5  /
+
+Warning: Function created with compilation errors.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  create or replace function "regfuncust1"
+  2  (
+  3  name varchar2(15)
+  4  MOB number;
+  5  DOB date;
+  6  )
+  7  RETURN VARCHAR2
+  8  IS
+  9  cusid varchar2(10);
+ 10  begin select 'cus'||substr(name,-2,2)||substr(mob,-2,2)||substr(DOB,-2,2)||cus_seq.nextval into cusid from dual;
+ 11  return cusid;
+ 12* end;
+ 13  /
+
+Warning: Function created with compilation errors.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace function "regfuncust1"
+  2  (
+  3  name varchar2(15)
+  4  MOB number;
+  5  DOB date;
+  6  )
+  7  RETURN VARCHAR2
+  8  IS
+  9  cusid varchar2(10);
+ 10  begin select 'cus'||substr(name,-2,2)||substr(mob,-2,2)||substr(DOB,-2,2)||cus_seq.nextval into cusid from dual;
+ 11  return cusid;
+ 12* end;
+SQL> /
+
+Warning: Function created with compilation errors.
+
+SQL> declare
+  2  k varchar2(60);
+  3  begin
+  4  k:=REGISTERFUNCTIONCUSTOMER('sandip','01-jan-2011',1234,'bang');
+  5  dbms_output.put_line('result:'||k);
+  6  end;
+  7  /
+result:CUSip11102                                                               
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  k varchar2(60);
+  3  begin
+  4  k:=regfuncust1('sandip','01-jan-2011',1234,'bang');
+  5  dbms_output.put_line('result:'||k);
+  6* end;
+SQL> /
+k:=regfuncust1('sandip','01-jan-2011',1234,'bang');
+   *
+ERROR at line 4:
+ORA-06550: line 4, column 4: 
+PLS-00201: identifier 'REGFUNCUST1' must be declared 
+ORA-06550: line 4, column 1: 
+PL/SQL: Statement ignored 
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create or replace function "regfuncust1"
+  2  (
+  3  name IN VARCHAR2,
+  4  dob IN DATE,
+  5  contact IN NUMBER,
+  6  city IN VARCHAR2)
+  7  return VARCHAR2
+  8  is
+  9  cusid varchar2(10);
+ 10  begin
+ 11  SELECT 'CUS' || SUBSTR(NAME, -2,2)||
+ 12  SUBSTR(DOB,-2,2) || CUS_SEQ.NEXTVAL INTO CUSID FROM DUAL;
+ 13  return cusid;
+ 14* end;
+SQL> /
+
+Function created.
+
+SQL> create or replace function "REGISTERFUNCTIONCUSTOMER"
+  2  (
+  3  name IN VARCHAR2,
+  4  dob IN DATE,
+  5  contact IN NUMBER,
+  6  city IN VARCHAR2)
+  7  return VARCHAR2
+  8  is
+  9  cusid varchar2(10);
+ 10  begin
+ 11  SELECT 'CUS' || SUBSTR(NAME, -2,2)||
+ 12  SUBSTR(DOB,-2,2) || CUS_SEQ.NEXTVAL INTO CUSID FROM DUAL;
+ 13  return cusid;
+ 14  end;/
+ 15  
+ 16  /
+
+Warning: Function created with compilation errors.
+
+SQL> begin
+  2  
+  3  
+  4  /
+begin
+*
+ERROR at line 1:
+ORA-06550: line 3, column 0: 
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the 
+following: 
+( begin case declare exit for goto if loop mod null pragma 
+raise return select update while with <an identifier> 
+<a double-quoted delimited-identifier> <a bind variable> << 
+continue close current delete fetch lock insert open rollback 
+savepoint set sql execute commit forall merge pipe purge 
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> spool off;
